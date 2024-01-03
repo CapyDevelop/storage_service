@@ -64,7 +64,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/controller_service:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/storage_service:latest
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
@@ -78,5 +78,5 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            docker pull alexseipopov/controller_service:latest
-            docker-compose -f ~/capybaras/docker-compose.yml up --no-deps --build -d controller
+            docker pull alexseipopov/storage_service:latest
+            docker-compose -f ~/capybaras/docker-compose.yml up --no-deps --build -d storage_service

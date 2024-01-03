@@ -50,6 +50,14 @@ jobs:
       - name: Create .env_docker
         run: |
             echo "${{ secrets.MY_ENV_VAR }}" > .env_docker
+      - name: Create access to Yandex Object Storage
+        run: |
+            mkdir ~/.aws
+            echo "[default]" > ~/.aws/credentials
+            echo "aws_access_key_id = ${{ secrets.ACCESS_KEY }}" >> ~/.aws/credentials
+            echo "aws_secret_access_key = ${{ secrets.SECRET_KEY }}" >> ~/.aws/credentials
+            echo "[default]" > ~/.aws/config
+            echo "region = ru-central1" >> ~/.aws/config
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         if: ${{ github.ref == 'refs/heads/main' }}

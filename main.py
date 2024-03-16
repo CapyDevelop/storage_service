@@ -45,12 +45,8 @@ class StorageService(storage_pb2_grpc.StorageServiceServicer):
         )
         s3.upload_file(f"./{filename_webp}", "capyavatars", f"avatar/{uuid}/{filename_webp}")
         os.remove(filename_webp)
-        db_request = db_pb2.SetAvatarRequest(
-            uuid=uuid,
-            avatar=filename_webp
-        )
-        db_response = db_service_stub.set_avatar(db_request)
-        return storage_pb2.PutResponse(status=db_response.status, description=db_response.description)
+
+        return storage_pb2.PutResponse(status=0, description="OK", filename=filename_webp)
 
 
 def serve():
